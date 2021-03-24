@@ -4,9 +4,12 @@
 #
 FROM alpine:3.13
 
-LABEL maintainer "ijo42 <admin@ijo42.ru>"
+LABEL maintainer="ijo42 <admin@ijo42.ru>"
 
-ARG KEEPASSXC_VERSION "master"
+ARG KEEPASSXC_VERSION=master
+ARG KEEPASSXC_NETWORKING=ON
+ARG KEEPASSXC_TESTS=ON
+ARG KEEPASSXC_AUTOTYPE=ON
 
 RUN buildDeps=' \
 		automake \
@@ -27,6 +30,7 @@ RUN buildDeps=' \
 		qt5-qtbase-dev \
 		qt5-qtsvg-dev \
 		qt5-qttools-dev \
+		alpine-conf \
 	' \
 	set -x \
 	&& apk add --no-cache --virtual .build-deps \
@@ -35,9 +39,10 @@ RUN buildDeps=' \
 	&& cd /usr/src/keepassxc \
 	&& mkdir build \
 	&& cd build \
-	&& cmake -DWITH_TESTS=ON -DWITH_XC_AUTOTYPE=ON -DWITH_XC_HTTP=ON .. \
+	&& cmake -DWITH_TESTS=${KEEPASSXC_TESTS} -DWITH_XC_AUTOTYPE=${KEEPASSXC_AUTOTYPE} -DWITH_XC_NETWORKING=${KEEPASSXC_NETWORKING} .. \
 	&& make \
 	&& make install \
+	&& setup-timezone -z UTC \
 	&& apk del .build-deps \
 	&& rm -rf /usr/src/keepassxc \
 	&& echo "Build complete."
@@ -56,4 +61,4 @@ RUN	apk --no-cache add \
 		qt5-qttools \
 		ttf-dejavu
 
-ENTRYPOINT [ "/usr/local/bin/keepassxc" ]
+ENTRYPOINT [ "keepassxc" ]
