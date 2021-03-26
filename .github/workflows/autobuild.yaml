@@ -34,4 +34,3 @@ jobs:
           file: ./${{ matrix.image }}/Dockerfile
           tags: "${{ github.repository_owner }}/${{ matrix.image }}"
           push: true
-          platforms: linux/amd64,linux/arm,linux/arm64
