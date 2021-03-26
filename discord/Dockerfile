@@ -6,7 +6,7 @@
 #             --privileged -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm --  ijo42/discord
 #
 
-FROM debian:stretch-slim
+FROM ubuntu:20.04 AS runtime
 
 RUN apt-get update && apt-get install -qqy \
   libc++1 \
