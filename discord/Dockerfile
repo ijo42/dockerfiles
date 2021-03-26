@@ -2,8 +2,8 @@
 # Based on:     davidk/docker-discord
 # 
 #   x11docker --clipboard --home="" --share="/etc/localtime:ro" --share="/usr/share/fonts:ro" \
-#             --hostdbus --sharecgroup --name="discord" --hostipc -- --device=/dev/snd \
-#             --privileged -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm --  ijo42/discord
+#             --hostdbus --name="discord" --hostipc -- --device=/dev/snd \
+#             --privileged -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm -m 512m --  ijo42/discord
 #
 
 FROM ubuntu:20.04 AS runtime
