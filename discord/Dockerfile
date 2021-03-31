@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -qqy \
   libgtk-3-0 \
   libcanberra-gtk3-module \
   libpulse0 \
+  libgbm1 \
   libnotify4 \
   libnss3 \
   libxkbfile1 \
