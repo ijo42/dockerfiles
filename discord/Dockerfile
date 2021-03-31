@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -qqy \
   libasound2 \
   libcap2 \
   libgconf-2-4 \
-  libgnome-keyring-dev \
   libgtk-3-0 \
   libcanberra-gtk3-module \
   libpulse0 \
