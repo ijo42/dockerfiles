@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -qqy \
 # Version: curl -sSI 'https://discord.com/api/download?platform=linux&format=deb' | grep -i 'location: ' | awk '{print $2}' | tr -d '[:space:]' | sed -e 's/.*discord-//g' | sed -e 's/.deb//g'
 
 ENV PULSE_SERVER="unix:/run/pulse/native"
-ARG DOWNLOAD_LINK
+ARG DOWNLOAD_LINK="https://discord.com/api/download/ptb?platform=linux&format=deb"
 
 RUN apt-get update && apt-get install -qqy \
   curl \
