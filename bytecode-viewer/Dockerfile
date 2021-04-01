@@ -5,8 +5,10 @@ FROM ubuntu:20.04 AS runtimebase
 
 RUN set -xe \
 	&& apt-get update \
-	&& apt-get install -y openjdk-11-jre python2 python3 unzip astyle \
-	&& apt-get clean
+	&& apt-get install -y openjdk-11-jre python2 python3 unzip astyle --no-install-recommends \
+ 	&& rm -rf /var/lib/apt/lists/* \
+  	&& apt-get autoremove -y \
+  	&& apt-get autoclean
 
 FROM ubuntu:20.04 AS dependencies
 
