@@ -1,6 +1,6 @@
 # 
 #   x11docker --clipboard --home="" --share="/etc/localtime:ro" \
-#             --hostdbus --name="spotify" -- --device=/dev/snd \
+#             --hostdbus --name="spotify" -- -m 512m \
 #             -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm -- ijo42/spotify
 #
 
