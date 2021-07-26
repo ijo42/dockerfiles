@@ -39,6 +39,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: ./${{ matrix.image }}/
           file: ./${{ matrix.image }}/Dockerfile
           tags: "${{ github.repository_owner }}/${{ matrix.image }}"
           push: true
