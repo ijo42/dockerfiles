@@ -55,7 +55,7 @@ ENV JAVA_HOME=${LIBERICA_ROOT} \
 	PATH=${LIBERICA_ROOT}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 FROM ubuntu:20.04 AS dependencies
 
-ARG RECAF_VERSION=2.20.0
+ARG RECAF_VERSION=2.20.3
 ARG RECAF_URL=https://github.com/Col-E/Recaf/releases/download/${RECAF_VERSION}/recaf-${RECAF_VERSION}-J8-jar-with-dependencies.jar
 
 WORKDIR /dependencies
