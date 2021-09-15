@@ -4,20 +4,19 @@
 FROM ubuntu:20.04 AS runtimebase
 
 RUN apt-get update && \
-	apt-get install -y curl fontconfig && \
+	apt-get install -y curl fontconfig libxext6 && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV  LANG=en_US.UTF-8 \
      LANGUAGE=en_US:en
 #	 LC_ALL=en_US.UTF-8
 
-ARG LIBERICA_ROOT=/usr/lib/jvm/jdk-8u282-bellsoft
-ARG LIBERICA_VERSION=8u282
-ARG LIBERICA_BUILD=8
+ARG LIBERICA_ROOT=/usr/lib/jvm/jdk-8u292-bellsoft
+ARG LIBERICA_VERSION=8u292
+ARG LIBERICA_BUILD=10
 ARG LIBERICA_VARIANT=jdk
-ARG LIBERICA_RELEASE_TAG=8u282
+ARG LIBERICA_RELEASE_TAG=8u292
 ARG LIBERICA_USE_LITE=1
-ARG RSUFFIX=full
 
 RUN LIBERICA_ARCH='' && LIBERICA_ARCH_TAG='' && \
   case `uname -m` in \
@@ -53,9 +52,12 @@ RUN LIBERICA_ARCH='' && LIBERICA_ARCH_TAG='' && \
 
 ENV JAVA_HOME=${LIBERICA_ROOT} \
 	PATH=${LIBERICA_ROOT}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+
+
 FROM ubuntu:20.04 AS dependencies
 
-ARG RECAF_VERSION=2.20.3
+ARG RECAF_VERSION=2.21.0
 ARG RECAF_URL=https://github.com/Col-E/Recaf/releases/download/${RECAF_VERSION}/recaf-${RECAF_VERSION}-J8-jar-with-dependencies.jar
 
 WORKDIR /dependencies
@@ -68,6 +70,7 @@ RUN set -xe \
 
 RUN set -xe \
     && curl -qsSL --create-dirs -o ./out/recaf.jar $RECAF_URL
+
 
 FROM runtimebase AS runtime
 
