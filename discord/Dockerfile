@@ -6,7 +6,7 @@
 #             --privileged -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm -m 512m --  ijo42/discord
 #
 
-FROM ubuntu:20.04 AS runtime
+FROM debian:buster AS runtime
 
 RUN apt-get update && apt-get install -qqy \
   libc++1 \
@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -qqy \
   curl \
   ca-certificates \
   --no-install-recommends \
-  && curl -sSL "${DOWNLOAD_LINK}" > discord.deb \ 
+  && curl -o discord.deb -sSL "${DOWNLOAD_LINK}" \ 
   && dpkg -i discord.deb \
   && rm -rf /var/lib/apt/lists/* discord.deb \
   && apt-get purge -y --auto-remove curl \
