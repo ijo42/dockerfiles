@@ -1,24 +1,28 @@
 #
 #   x11docker --clipboard --home="" --name="recaf" --  --  ijo42/recaf
 #
-FROM ubuntu:20.04 AS runtimebase
+FROM debian:buster AS runtimebase
 
 RUN apt-get update && \
-	apt-get install -y curl fontconfig libxext6 && \
-	rm -rf /var/lib/apt/lists/*
+	apt-get install -y curl fontconfig locales libxext6 libgle3 libxrender1 libxtst6 && \
+	rm -rf /var/lib/apt/lists/* && \
+	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+	locale-gen
 
 ENV  LANG=en_US.UTF-8 \
      LANGUAGE=en_US:en
 #	 LC_ALL=en_US.UTF-8
 
-ARG LIBERICA_ROOT=/usr/lib/jvm/jdk-8u292-bellsoft
-ARG LIBERICA_VERSION=8u292
-ARG LIBERICA_BUILD=10
-ARG LIBERICA_VARIANT=jdk
-ARG LIBERICA_RELEASE_TAG=8u292
-ARG LIBERICA_USE_LITE=1
 
-RUN LIBERICA_ARCH='' && LIBERICA_ARCH_TAG='' && \
+ARG LIBERICA_VERSION=8u302
+ARG LIBERICA_BUILD=8
+ARG LIBERICA_ROOT=/usr/lib/jvm/jdk-${LIBERICA_VERSION}-bellsoft
+ARG LIBERICA_VARIANT=jdk
+ARG LIBERICA_RELEASE_TAG=8u302
+ARG LIBERICA_USE_LITE=1
+ARG RSUFFIX=-full
+
+RUN set +xe && LIBERICA_ARCH='' && LIBERICA_ARCH_TAG='' && \
   case `uname -m` in \
         x86_64) \
             LIBERICA_ARCH="amd64" \
@@ -46,16 +50,14 @@ RUN LIBERICA_ARCH='' && LIBERICA_ARCH_TAG='' && \
   SHA1=`curl -fSL "https://download.bell-sw.com/sha1sum/java/${LIBERICA_VERSION}${LIBERICA_BUILD_STR}" | grep ${PKG} | cut -f1 -d' '` && \
   echo "${SHA1} */tmp/java/jdk.tar.gz" | sha1sum -c - && \
   tar xzf /tmp/java/jdk.tar.gz -C /tmp/java $LITE_VERSION_EXCLUDES && \
-  find "/tmp/java/${LIBERICA_VARIANT}${LIBERICA_VERSION}" -maxdepth 1 -mindepth 1 -exec mv "{}" "${LIBERICA_ROOT}/" \; && \
+  find "/tmp/java/${LIBERICA_VARIANT}${LIBERICA_VERSION}${RSUFFIX}" -maxdepth 1 -mindepth 1 -exec mv "{}" "${LIBERICA_ROOT}/" \; && \
   ln -s "${LIBERICA_ROOT}" /usr/lib/jvm/jdk && \
   rm -rf /tmp/java
 
 ENV JAVA_HOME=${LIBERICA_ROOT} \
 	PATH=${LIBERICA_ROOT}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-
-
-FROM ubuntu:20.04 AS dependencies
+FROM debian:buster AS dependencies
 
 ARG RECAF_VERSION=2.21.0
 ARG RECAF_URL=https://github.com/Col-E/Recaf/releases/download/${RECAF_VERSION}/recaf-${RECAF_VERSION}-J8-jar-with-dependencies.jar
@@ -75,7 +77,12 @@ RUN set -xe \
 FROM runtimebase AS runtime
 
 LABEL maintainer="ijo42 <admin@ijo42.ru>"
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN set -xe \
+    && apt-get update \
+    && apt-get install -qyy libgtk2.0-0
 
 COPY --from=dependencies /dependencies/out /opt
 
-ENTRYPOINT [ "java", "-jar /opt/recaf.jar" ]
+ENTRYPOINT [ "java", "-jar", "/opt/recaf.jar" ]
