@@ -4,7 +4,7 @@
 #             -v /var/run/user/$(id -u)/pulse/native:/run/pulse/native --rm -- ijo42/spotify
 #
 
-FROM ubuntu:20.04 AS runtime
+FROM debian:buster AS runtime
 LABEL maintainer="ijo42 <admin@ijo42.ru>"
 ENV PULSE_SERVER="unix:/run/pulse/native"
 
