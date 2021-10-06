@@ -2,7 +2,7 @@ FROM alpine:3.13
 LABEL maintainer="ijo42 <admin@ijo42.ru>"
 
 ARG GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc
-ARG GLIBC_VERSION=2.33-r0
+ARG GLIBC_VERSION=2.34-r0
 ARG OSIGN_REPO=https://github.com/mtrojnar/osslsigncode
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8'
