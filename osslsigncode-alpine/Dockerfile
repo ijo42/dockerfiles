@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 LABEL maintainer="ijo42 <admin@ijo42.ru>"
 
 ARG GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc
