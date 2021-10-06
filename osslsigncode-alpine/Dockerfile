@@ -32,7 +32,7 @@ RUN buildDeps=' \
     /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8 && \
     mkdir /tmp/osslsigncode && cd /tmp/osslsigncode && PATH=/usr/glibc-compat/sbin:/usr/glibc-compat/bin:$PATH && \
     git clone ${OSIGN_REPO} osslsigncode-master && \
-    cd osslsigncode-master && ./autogen.sh && ./configure && make && make install && make clean && \
+    cd osslsigncode-master && ./bootstrap && ./configure && make && make install && make clean && \
     apk del .build-deps && rm -rf /tmp/* /usr/share/doc /usr/share/man
 
 ENTRYPOINT ["osslsigncode"]
