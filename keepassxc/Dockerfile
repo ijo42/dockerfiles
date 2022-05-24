@@ -30,6 +30,8 @@ RUN buildDeps=' \
 		qt5-qtbase-dev \
 		qt5-qtsvg-dev \
 		qt5-qttools-dev \
+		qt5-qtx11extras-dev \
+		botan-dev \
 		alpine-conf \
 	' \
 	set -x \
@@ -59,6 +61,8 @@ RUN	apk --no-cache add \
 		qt5-qtbase-x11 \
 		qt5-qtsvg \
 		qt5-qttools \
+		qt5-qtx11extras \
+		botan \
 		ttf-dejavu
 
 ENTRYPOINT [ "keepassxc" ]
