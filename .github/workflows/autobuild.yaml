@@ -11,7 +11,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            image: [ bytecode-viewer, discord, forkwork, keepassxc, spotify, osslsigncode-alpine, jre-s6, recaf ]
+            image: [ bytecode-viewer, discord, forkwork, keepassxc, spotify, osslsigncode-alpine, recaf ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
