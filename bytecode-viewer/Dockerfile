@@ -12,7 +12,7 @@ RUN set -xe \
 
 FROM ubuntu:20.04 AS dependencies
 
-ARG BCV_VERSION=2.9.22
+ARG BCV_VERSION=2.11.2
 ARG BCV_URL=https://github.com/Konloch/bytecode-viewer/releases/download/v${BCV_VERSION}/Bytecode-Viewer-${BCV_VERSION}.jar
 
 WORKDIR /dependencies
