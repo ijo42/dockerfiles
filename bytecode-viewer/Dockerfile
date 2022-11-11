@@ -32,4 +32,4 @@ LABEL maintainer="ijo42 <admin@ijo42.ru>"
 
 COPY --from=dependencies /dependencies/out /opt
 
-ENTRYPOINT [ "java", "-jar /opt/bcv.jar" ]
+ENTRYPOINT [ "java", "-jar", "/opt/bcv.jar" ]
