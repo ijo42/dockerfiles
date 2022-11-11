@@ -33,6 +33,7 @@ RUN buildDeps=' \
 		qt5-qtx11extras-dev \
 		botan-dev \
 		alpine-conf \
+        libx11 \
 	' \
 	set -x \
 	&& apk add --no-cache --virtual .build-deps \
