@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -qqy \
   va-driver-all \
   xdg-utils \
   libatomic1 \
+  libgl1 \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get autoremove -y \
