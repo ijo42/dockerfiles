@@ -2,7 +2,7 @@
 #	x11docker --network=none --clipboard --home= --hostdisplay --share /usr/share/X11/xkb/:ro \
 #				--share /etc/machine-id:ro --name=keepassxc ijo42/keepassxc
 #
-FROM alpine:3.13 AS runtime
+FROM alpine:3.17 AS runtime
 
 LABEL maintainer="ijo42 <admin@ijo42.ru>"
 
