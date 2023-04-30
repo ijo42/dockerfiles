@@ -34,6 +34,8 @@ RUN buildDeps=' \
 		botan-dev \
 		alpine-conf \
         libx11 \
+        libxtst-dev \
+        libxi-dev \
 	' \
 	set -x \
 	&& apk add --no-cache --virtual .build-deps \
@@ -57,7 +59,7 @@ RUN	apk --no-cache add \
 		libgcrypt \
 		libqrencode \
 		libsodium \
-		mesa-dri-intel \
+		mesa \
 		qt5-qtbase \
 		qt5-qtbase-x11 \
 		qt5-qtsvg \
